@@ -1,23 +1,40 @@
 from kernel.task import Plan, PlanStep
+from typing import List
 
 
 class Planner:
-    def generate_plan(self, goal: str, constraints: str = "") -> Plan:
+    def generate_plan(
+        self,
+        goal: str,
+        constraints: str = "",
+        memory_context: List[str] | None = None
+    ) -> Plan:
         """
-        Generate a bounded, executable plan.
-        MUST return ≤ 5 steps.
-        MUST avoid hallucinated tools.
+        Memory-aware plan generation.
         """
 
-        # Placeholder logic (replace with model later)
-        steps = [
+        steps = []
+
+        if memory_context:
+            steps.append(
+                PlanStep(
+                    id=1,
+                    description="Reuse prior knowledge relevant to the task"
+                )
+            )
+
+        steps.append(
             PlanStep(
-                id=1,
+                id=len(steps) + 1,
                 description=f"Analyze the goal: {goal}"
-            ),
+            )
+        )
+
+        steps.append(
             PlanStep(
-                id=2,
+                id=len(steps) + 1,
                 description="Produce final answer"
             )
-        ]
+        )
+
         return Plan(steps=steps)

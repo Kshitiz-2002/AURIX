@@ -25,6 +25,7 @@ for task in tasks:
         "task_id": task["id"],
         "completed": kernel.task.completed,
         "steps": steps,
+        "used_memory": bool(kernel.memory_manager.recall(task["goal"])),
         "latency": duration,
         "memory_items": kernel.memory_manager.stats()["total_items"],
         "retrieval_latency": retrieval_latency

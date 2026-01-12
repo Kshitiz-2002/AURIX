@@ -43,14 +43,13 @@ class CognitiveKernel:
         self.state = CognitiveState.PLAN
 
     def _plan(self):
-        # 🔹 Recall memory (safe even if empty)
-        _ = self.memory_manager.recall(self.task.goal)
-
+        recalled_items = self.memory_manager.recall(self.task.goal)
+        memory_context = [item.content for item in recalled_items]
         self.task.plan = self.planner.generate_plan(
             self.task.goal,
-            self.task.constraints
+            self.task.constraints,
+            memory_context=memory_context
         )
-
         self.state = CognitiveState.ACT
 
     def _act(self):
