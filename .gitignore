@@ -1,3 +1,5 @@
-*__pycache__
-venv
-*results.json
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+benchmarks/results.json
