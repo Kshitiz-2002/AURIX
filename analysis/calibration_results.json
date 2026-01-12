@@ -1,0 +1,42 @@
+[
+  {
+    "threshold": 0.3,
+    "base_steps": 2,
+    "reduced_steps": 1,
+    "step_reduction": 1,
+    "max_similarity": 1.0,
+    "latency": 0.015177249908447266
+  },
+  {
+    "threshold": 0.5,
+    "base_steps": 2,
+    "reduced_steps": 1,
+    "step_reduction": 1,
+    "max_similarity": 1.0,
+    "latency": 0.018459081649780273
+  },
+  {
+    "threshold": 0.7,
+    "base_steps": 2,
+    "reduced_steps": 1,
+    "step_reduction": 1,
+    "max_similarity": 1.0,
+    "latency": 0.022037029266357422
+  },
+  {
+    "threshold": 0.85,
+    "base_steps": 2,
+    "reduced_steps": 1,
+    "step_reduction": 1,
+    "max_similarity": 1.0,
+    "latency": 0.014371395111083984
+  },
+  {
+    "threshold": 0.9,
+    "base_steps": 2,
+    "reduced_steps": 1,
+    "step_reduction": 1,
+    "max_similarity": 1.0,
+    "latency": 0.015526771545410156
+  }
+]

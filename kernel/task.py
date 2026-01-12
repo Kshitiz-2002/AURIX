@@ -6,8 +6,9 @@ from typing import List, Optional
 class PlanStep:
     id: int
     description: str
+    is_reasoning: bool = False
     tool: Optional[str] = None
-    status: str = "PENDING"  # PENDING | DONE | FAILED
+    status: str = "PENDING"   # PENDING | DONE | FAILED
     result: Optional[str] = None
 
 
@@ -15,6 +16,9 @@ class PlanStep:
 class Plan:
     steps: List[PlanStep] = field(default_factory=list)
     current_step: int = 0
+    max_similarity: float = 0.0
+    step_reduced: bool = False
+    reasoning_steps: int = 0
 
     def next_step(self) -> Optional[PlanStep]:
         if self.current_step < len(self.steps):
@@ -31,6 +35,11 @@ class Plan:
         step = self.steps[self.current_step]
         step.status = "FAILED"
         step.result = error
+        self.current_step += 1
+
+    @property
+    def reduced(self) -> bool:
+        return self.step_reduced
 
 
 @dataclass

@@ -36,7 +36,15 @@ for task in tasks:
         "latency": duration,
         "memory_items": kernel.memory_manager.stats()["total_items"],
         "retrieval_latency": retrieval_latency,
-        "max_similarity": max_score
+        "max_similarity": max_score,
+        "reasoning_ratio": (
+            kernel.task.plan.reasoning_steps /
+            len(kernel.task.plan.steps)
+        ),
+        "overconfidence": (
+            kernel.task.plan.reduced and
+            kernel.last_max_similarity < 0.85
+        )
     })
 
 with open("benchmarks/results.json", "w") as f:
