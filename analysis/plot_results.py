@@ -7,6 +7,7 @@ with open("benchmarks/results.json") as f:
 tasks = [d["task_id"] for d in data]
 steps = [d["steps"] for d in data]
 latency = [d["latency"] for d in data]
+memory_items = [d["memory_items"] for d in data]
 
 plt.figure()
 plt.bar(tasks, steps)
@@ -19,5 +20,12 @@ plt.figure()
 plt.bar(tasks, latency)
 plt.title("Latency per Task")
 plt.ylabel("Seconds")
+plt.xlabel("Task")
+plt.show()
+
+plt.figure()
+plt.bar(tasks, memory_items)
+plt.title("Memory Growth per Task")
+plt.ylabel("Items")
 plt.xlabel("Task")
 plt.show()

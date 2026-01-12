@@ -21,7 +21,8 @@ for task in tasks:
         "task_id": task["id"],
         "completed": kernel.task.completed,
         "steps": steps,
-        "latency": duration
+        "latency": duration,
+        "memory_items": kernel.memory_manager.stats()["total_items"]
     })
 
 with open("benchmarks/results.json", "w") as f:
