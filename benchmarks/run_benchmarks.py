@@ -21,6 +21,12 @@ for task in tasks:
     _ = kernel.memory_manager.recall(task["goal"])
     retrieval_latency = time.time() - retrieval_start
 
+    matches = kernel.last_memory_matches 
+    max_score = (
+        float(max(score for _, score in matches))
+        if matches else 0.0
+    )
+
     results.append({
         "task_id": task["id"],
         "completed": kernel.task.completed,
@@ -29,7 +35,8 @@ for task in tasks:
         "used_memory": bool(kernel.memory_manager.recall(task["goal"])),
         "latency": duration,
         "memory_items": kernel.memory_manager.stats()["total_items"],
-        "retrieval_latency": retrieval_latency
+        "retrieval_latency": retrieval_latency,
+        "max_similarity": max_score
     })
 
 with open("benchmarks/results.json", "w") as f:

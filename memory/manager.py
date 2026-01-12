@@ -17,6 +17,11 @@ class MemoryManager:
 
     def recall(self, query: str, k: int = 3):
         return self.memory.retrieve(query, k=k)
+    
+    def recall_with_confidence(self, query: str):
+        if hasattr(self.memory, "retrieve_with_scores"):
+            return self.memory.retrieve_with_scores(query)
+        return []
 
     def stats(self):
         return {

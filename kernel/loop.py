@@ -13,7 +13,7 @@ class CognitiveKernel:
 
         self.planner = Planner()
 
-        # ✅ MEMORY IS NOW FIRST-CLASS
+        self.last_memory_matches = [] 
         self.memory_manager = MemoryManager(VectorMemory(use_gpu=False))
 
         self.error_message: str | None = None
@@ -43,13 +43,18 @@ class CognitiveKernel:
         self.state = CognitiveState.PLAN
 
     def _plan(self):
-        recalled_items = self.memory_manager.recall(self.task.goal)
-        memory_context = [item.content for item in recalled_items]
-        self.task.plan = self.planner.generate_plan(
+        matches = self.memory_manager.recall_with_confidence(self.task.goal)
+        self.last_memory_matches = matches
+        memory_matches = [(item.content, score) for item, score in matches]
+        plan = self.planner.generate_plan(
             self.task.goal,
             self.task.constraints,
-            memory_context=memory_context
+            memory_matches=memory_matches
         )
+        if plan is None:
+            raise RuntimeError("Planner returned None")
+        
+        self.task.plan = plan
         self.state = CognitiveState.ACT
 
     def _act(self):
@@ -70,8 +75,7 @@ class CognitiveKernel:
         if self.task.plan.next_step() is None:
             self.task.completed = True
 
-            # ✅ Store episodic memory ONLY on completion
-            summary = f"Completed task: {self.task.goal}"
+            summary = self.task.goal
             self.memory_manager.remember_task(self.task.goal, summary)
 
             self.state = CognitiveState.DONE
