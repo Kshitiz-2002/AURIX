@@ -8,7 +8,7 @@ class PlanStep:
     description: str
     is_reasoning: bool = False
     tool: Optional[str] = None
-    status: str = "PENDING"   # PENDING | DONE | FAILED
+    status: str = "PENDING"
     result: Optional[str] = None
 
 
@@ -36,6 +36,13 @@ class Plan:
         step.status = "FAILED"
         step.result = error
         self.current_step += 1
+
+    @property
+    def reasoning_load(self) -> float:
+        if not self.steps:
+            return 0.0
+        reasoning = sum(1 for s in self.steps if s.is_reasoning)
+        return reasoning / len(self.steps)
 
     @property
     def reduced(self) -> bool:

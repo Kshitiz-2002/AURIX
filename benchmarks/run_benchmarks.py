@@ -44,7 +44,8 @@ for task in tasks:
         "overconfidence": (
             kernel.task.plan.reduced and
             kernel.last_max_similarity < 0.85
-        )
+        ),
+        "reasoning_load": kernel.last_reasoning_load
     })
 
 with open("benchmarks/results.json", "w") as f:
