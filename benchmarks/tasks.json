@@ -1,17 +1,18 @@
 [
   {
     "id": "simple_qa",
-    "goal": "Explain what a stack is",
-    "expected_steps": 2
+    "goal": "What is Python?"
   },
   {
     "id": "planning_task",
-    "goal": "Design a REST API for a TODO app",
-    "expected_steps": 4
+    "goal": "Plan a small project"
   },
   {
     "id": "long_task",
-    "goal": "Outline a research paper structure",
-    "expected_steps": 5
+    "goal": "Explain how neural networks work"
+  },
+  {
+    "id": "repeat_simple_qa",
+    "goal": "What is Python?"
   }
 ]

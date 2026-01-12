@@ -1,7 +1,7 @@
 from kernel.planner import Planner
 
 
-def test_planner_uses_memory():
+def test_planner_reduces_steps_with_memory():
     planner = Planner()
 
     plan = planner.generate_plan(

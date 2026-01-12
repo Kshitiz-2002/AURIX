@@ -4,11 +4,11 @@ from kernel.loop import CognitiveKernel
 
 results = []
 
+kernel = CognitiveKernel()
 with open("benchmarks/tasks.json") as f:
     tasks = json.load(f)
 
 for task in tasks:
-    kernel = CognitiveKernel()
     start = time.time()
 
     kernel.load_task(task["goal"])
@@ -25,6 +25,7 @@ for task in tasks:
         "task_id": task["id"],
         "completed": kernel.task.completed,
         "steps": steps,
+        "step_reduced": steps < 2,
         "used_memory": bool(kernel.memory_manager.recall(task["goal"])),
         "latency": duration,
         "memory_items": kernel.memory_manager.stats()["total_items"],

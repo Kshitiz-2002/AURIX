@@ -10,31 +10,26 @@ class Planner:
         memory_context: List[str] | None = None
     ) -> Plan:
         """
-        Memory-aware plan generation.
+        Memory-based step reduction planner.
         """
 
-        steps = []
-
-        if memory_context:
-            steps.append(
+        # MEMORY HIT → REDUCE STEPS
+        if memory_context and len(memory_context) > 0:
+            return Plan(steps=[
                 PlanStep(
                     id=1,
-                    description="Reuse prior knowledge relevant to the task"
+                    description="Produce final answer using prior experience"
                 )
-            )
+            ])
 
-        steps.append(
+        # NO MEMORY → FULL REASONING
+        return Plan(steps=[
             PlanStep(
-                id=len(steps) + 1,
+                id=1,
                 description=f"Analyze the goal: {goal}"
-            )
-        )
-
-        steps.append(
+            ),
             PlanStep(
-                id=len(steps) + 1,
+                id=2,
                 description="Produce final answer"
             )
-        )
-
-        return Plan(steps=steps)
+        ])
