@@ -1,0 +1,17 @@
+[
+  {
+    "id": "simple_qa",
+    "goal": "Explain what a stack is",
+    "expected_steps": 2
+  },
+  {
+    "id": "planning_task",
+    "goal": "Design a REST API for a TODO app",
+    "expected_steps": 4
+  },
+  {
+    "id": "long_task",
+    "goal": "Outline a research paper structure",
+    "expected_steps": 5
+  }
+]
