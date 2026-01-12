@@ -2,7 +2,7 @@ from kernel.state import CognitiveState
 from kernel.task import Task
 from kernel.planner import Planner
 
-from memory.simple_memory import SimpleMemory
+from memory.vector_memory import VectorMemory
 from memory.manager import MemoryManager
 
 
@@ -14,7 +14,7 @@ class CognitiveKernel:
         self.planner = Planner()
 
         # ✅ MEMORY IS NOW FIRST-CLASS
-        self.memory_manager = MemoryManager(SimpleMemory())
+        self.memory_manager = MemoryManager(VectorMemory(use_gpu=False))
 
         self.error_message: str | None = None
 

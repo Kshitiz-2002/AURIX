@@ -17,12 +17,17 @@ for task in tasks:
     duration = time.time() - start
     steps = len(kernel.task.plan.steps)
 
+    retrieval_start = time.time()
+    _ = kernel.memory_manager.recall(task["goal"])
+    retrieval_latency = time.time() - retrieval_start
+
     results.append({
         "task_id": task["id"],
         "completed": kernel.task.completed,
         "steps": steps,
         "latency": duration,
-        "memory_items": kernel.memory_manager.stats()["total_items"]
+        "memory_items": kernel.memory_manager.stats()["total_items"],
+        "retrieval_latency": retrieval_latency
     })
 
 with open("benchmarks/results.json", "w") as f:
